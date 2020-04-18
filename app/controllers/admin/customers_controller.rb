@@ -1,4 +1,5 @@
 require 'open_food_network/address_finder'
+require 'open_food_network/user_balance_calculator'
 
 module Admin
   class CustomersController < ResourceController
@@ -108,6 +109,14 @@ module Admin
           indexed_hash[customer_id] << tag.name
         end
       end
+    end
+
+    # Fetches customer's balance
+    def customer_balance_by_id
+      # managed_enterprise_id
+      # OpenFoodNetwork::UserBalanceCalculator.new(order.email, order.distributor).balance
+      # return "42.00"
+      balance = "42.00"
     end
   end
 end
