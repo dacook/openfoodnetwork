@@ -34,6 +34,9 @@ feature 'Customers' do
         expect(page).to have_no_selector "tr#c_#{customer3.id}"
         expect(page).to have_selector "tr#c_#{customer4.id}"
 
+        # Loads the customer's balance
+        expect(page).to have_selector "td.balance"
+
         # Changing Shops
         select2_select managed_distributor1.name, from: "shop_id"
 
