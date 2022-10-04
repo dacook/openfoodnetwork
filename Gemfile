@@ -133,6 +133,8 @@ gem 'flipper-ui'
 
 gem "view_component"
 
+gem "font-awesome-sass"
+
 group :production, :staging do
   gem 'ddtrace'
   gem 'rack-timeout'
