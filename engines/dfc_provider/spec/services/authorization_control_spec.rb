@@ -5,11 +5,11 @@ require DfcProvider::Engine.root.join("spec/spec_helper")
 describe DfcProvider::AuthorizationControl do
   include AuthorizationHelper
 
-  let(:user) { create(:user) }
+  let(:user) { create(:oidc_user) }
 
   describe "with OIDC token" do
     it "finds a user" do
-      token = allow_token_for(email: user.email)
+      token = allow_token_for(email: user.email, uid: user.uid)
       auth = described_class.new(
         double(:request,
                headers: { "Authorization" => "Bearer #{token}" })
@@ -19,7 +19,7 @@ describe DfcProvider::AuthorizationControl do
     end
 
     it "ignores expired signatures" do
-      token = allow_token_for(exp: Time.now.to_i, email: user.email)
+      token = allow_token_for(exp: Time.now.to_i, email: user.email, uid: user.uid)
 
       auth = described_class.new(
         double(:request,
