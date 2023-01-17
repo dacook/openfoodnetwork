@@ -37,6 +37,7 @@ if [ -s "$DB_CACHE_FILE" ]; then
   psql -h localhost -U ofn open_food_network_dev < "$DB_CACHE_FILE"
 else
   echo "Downloading dump to '$DB_CACHE_FILE'."
+  echo "Accessing database $DB_DATABASE as $DB_USER"
   ssh -C "$HOST" "pg_dump -h localhost -U $DB_USER $DB_DATABASE ${DB_OPTIONS[@]}"\
   | tee "$DB_CACHE_FILE"\
   | psql -h localhost -U ofn open_food_network_dev
