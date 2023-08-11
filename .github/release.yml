@@ -1,0 +1,12 @@
+changelog:
+  categories:
+    - title: User-facing changes 👀
+      labels:
+        - '*'
+      exclude:
+        labels:
+          - dependencies
+    - title: Technical changes 🔧
+    - title: Dependencies 📦
+      labels:
+        - dependencies
