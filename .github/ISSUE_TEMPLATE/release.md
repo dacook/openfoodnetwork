@@ -22,8 +22,9 @@ assignees: ''
 - [ ] Create a tag:
   <details><summary>Command line instructions:</summary>
     <pre>
-    git tag vX.X.X
-    git push upstream vX.X.X</pre>
+    v= #X.Y.Z
+    git tag $v
+    git push upstream $v</pre>
   </details>  
 - [ ] [Draft new release]. Look at previous [releases] for inspiration.
     - Select new release tag
@@ -44,7 +45,7 @@ assignees: ''
   <pre>
   cd ofn-install
   git pull
-  ansible-playbook --limit all-prod --extra-vars "git_version=vx.y.z" playbooks/deploy.yml
+  ansible-playbook --limit all-prod --extra-vars "git_version=$v" playbooks/deploy.yml
   </pre>
   </details>
 - [ ] Notify [#instance-managers]:
