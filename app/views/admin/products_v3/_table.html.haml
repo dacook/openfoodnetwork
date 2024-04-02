@@ -1,7 +1,6 @@
-= form_with url: bulk_update_admin_products_path, method: :patch, id: "products-form",
+= form_with url: bulk_update_admin_products_path, method: :post, id: "products-form",
             builder: BulkFormBuilder,
-            html: { data: { reflex: 'submit->products#bulk_update', 'reflex-serialize-form': true,
-              controller: "bulk-form", 'bulk-form-disable-selector-value': "#sort,#filters",
+            html: { data: { controller: "bulk-form", 'bulk-form-disable-selector-value': "#sort,#filters",
               'bulk-form-error-value': defined?(error_counts),
               } } do |form|
   = render(partial: "admin/shared/flashes", locals: { flashes: }) if defined? flashes
@@ -36,7 +35,7 @@
                         -# Y products could not be saved correctly. Please review errors and try again
                         = t('.error_summary.invalid', count: error_counts[:invalid])
                 .form-buttons
-                  = form.submit t('.reset'), type: :reset, class: "medium", 'data-reflex': 'click->products#fetch'
+                  = form.submit t('.reset'), type: :reset, class: "medium"
                   = form.submit t('.save'), class: "medium"
       %tr
         %th.align-left= # image
