@@ -605,8 +605,6 @@ describe 'As an admin, I can manage products', feature: :admin_style_v3 do
       end
     end
 
-
-
     context "pagination" do
       let!(:product_a) { create(:simple_product, name: "zucchini") } # appears on p2
 
@@ -617,7 +615,6 @@ describe 'As an admin, I can manage products', feature: :admin_style_v3 do
         within ".pagination" do
           click_link "2"
         end
-
         within row_containing_name("zucchini") do
           fill_in "Name", with: "zucchinis"
         end
@@ -629,14 +626,12 @@ describe 'As an admin, I can manage products', feature: :admin_style_v3 do
           product_a.reload
         }.to change { product_a.name }.to("zucchinis")
 
-        pending "awaiting pagination to be loaded without SR"
         expect(page).to have_content "Showing 16 to 16" # todo: remove unnecessary duplication
         expect_page_to_be 2
         expect_per_page_to_be 15
         expect_products_count_to_be 1
         expect(page).to have_css row_containing_name("zucchinis")
       end
-
     end
   end
 
