@@ -22,11 +22,11 @@ module Admin
         @error_counts = { saved: product_set.saved_count, invalid: product_set.invalid.count }
       end
 
-      redirect_to :index
+      redirect_to [:index, { _page: @page, _per_page: @per_page}]
     end
 
-    def index_url
-      "/admin/products" #todo: fix routing so this can be automatically generated
+    def index_url(params)
+      "/admin/products?" + params.to_query #todo: fix routing so this can be automatically generated
     end
 
     private
@@ -42,8 +42,8 @@ module Admin
 
     def init_pagination_params
       # prority is given to element dataset (if present) over url params
-      @page = params[:_page] || 1
-      @per_page = params[:_per_page] || 15
+      @page = params[:_page].presence || 1
+      @per_page = params[:_per_page].presence || 15
     end
 
     def producers
