@@ -35,7 +35,7 @@
                         -# Y products could not be saved correctly. Please review errors and try again
                         = t('.error_summary.invalid', count: error_counts[:invalid])
                 .form-buttons
-                  = form.submit t('.reset'), type: :reset, class: "medium"
+                  %a.button.reset.medium{ href: admin_products_path }= t('.reset') #todo get current url incluing query parms
                   = form.submit t('.save'), class: "medium"
       %tr
         %th.align-left= # image
