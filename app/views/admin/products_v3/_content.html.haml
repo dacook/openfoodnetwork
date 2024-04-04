@@ -10,8 +10,7 @@
   - if products.any?
     .container.results
       .sixteen.columns
-        #sort
-          = render partial: 'admin/shared/stimulus_page_controls', locals: { pagy: pagy, scope: current_i18n_scope }
+        = render partial: 'sort', locals: { pagy: pagy, search_term: search_term, producer_id: producer_id, category_id: category_id }
         = render partial: 'table', locals: { products: products }
     - if pagy.pages > 1
       = render partial: 'admin/shared/stimulus_pagination', locals: { pagy: pagy }
