@@ -2,7 +2,7 @@
   %div{ style: "display: flex; justify-content: space-between;" }
     = render partial: "bulk_actions"
     .per-page.right
-      = render partial: 'admin/shared/stimulus_page_controls', locals: { pagy: pagy }
+      = render partial: 'admin/shared/stimulus_page_controls', locals: { pagy: pagy, scope: current_i18n_scope }
 
 %table#listing_orders.index.responsive{width: "100%" }
   %colgroup

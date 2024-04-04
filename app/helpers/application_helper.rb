@@ -79,4 +79,9 @@ module ApplicationHelper
   def cache_key_with_locale(key, locale)
     Array.wrap(key) + [locale.to_s, I18nDigests.for_locale(locale)]
   end
+
+  def current_i18n_scope
+    # Inspired by private method ActionView::Helpers::TranslationHelper#scope_key_by_partial
+    @virtual_path.gsub(%r{/_?}, ".")
+  end
 end
