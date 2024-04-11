@@ -18,9 +18,23 @@ module Admin
 
       if product_set.save
         flash[:success] = I18n.t('admin.products_v3.bulk_update.success')
-        redirect_to [:index,
-                     { page: @page, per_page: @per_page, search_term: @search_term,
-                       producer_id: @producer_id, category_id: @category_id }]
+
+        respond_to do |format|
+          format.turbo_stream do
+            render turbo_stream: turbo_stream.replace("products-content", partial: "content",
+              locals: { products: @products, pagy: @pagy, search_term: @search_term,
+                                             producer_options: producers, producer_id: @producer_id,
+                                             category_options: categories, category_id: @category_id,
+                                             flashes: flash })
+          end
+
+         format.html do
+            redirect_to [:index,
+                         { page: @page, per_page: @per_page, search_term: @search_term,
+                           producer_id: @producer_id, category_id: @category_id }]
+          end
+        end
+
       elsif product_set.errors.present?
         @error_counts = { saved: product_set.saved_count, invalid: product_set.invalid.count }
 
