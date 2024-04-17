@@ -7,7 +7,26 @@ module Admin
 
     def index
       fetch_products
-      render "index", locals: { producers:, categories:, flash: }
+
+      respond_to do |format|
+        format.html do
+          render "index", locals: { producers:, categories:, flash: }
+        end
+        format.turbo_stream do |format|
+          # We shouldn't need to specify an action (replace), we should be able to just render.
+          # render turbo_stream: turbo_stream.replace("products-content", partial: "content",
+          #   locals: { products: @products, pagy: @pagy, search_term: @search_term,
+          #                                  producer_options: producers, producer_id: @producer_id,
+          #                                  category_options: categories, category_id: @category_id,
+          #                                  flashes: flash })
+
+          render partial: "content", layout: false, formats: :html,
+                 locals: { products: @products, pagy: @pagy, search_term: @search_term,
+                           producer_options: producers, producer_id: @producer_id,
+                           category_options: categories, category_id: @category_id,
+                           flashes: flash }
+        end
+      end
     end
 
     def bulk_update
@@ -19,26 +38,55 @@ module Admin
       if product_set.save
         flash[:success] = I18n.t('admin.products_v3.bulk_update.success')
 
-        respond_to do |format|
-          format.turbo_stream do
-            render turbo_stream: turbo_stream.replace("products-content", partial: "content",
-              locals: { products: @products, pagy: @pagy, search_term: @search_term,
-                                             producer_options: producers, producer_id: @producer_id,
-                                             category_options: categories, category_id: @category_id,
-                                             flashes: flash })
-          end
+        # respond_to do |format|
+          # format.turbo_stream do
+          #   # index.module.js:1642 Successful form submissions must redirect
+          #   ## actually, most "replace" actions don't have to be a turbo_steam, just a plain <turbo-frame>
+            # render turbo_stream: turbo_stream.replace("products-content", partial: "content",
+            #   locals: { products: @products, pagy: @pagy, search_term: @search_term,
+            #                                  producer_options: producers, producer_id: @producer_id,
+            #                                  category_options: categories, category_id: @category_id,
+            #                                  flashes: flash })
+          # end
 
-         format.html do
+          # why isn't it turbo_frame?? hmm. just redirect to index anyways.
+         #  format.turbo_stream do |format|
+         #    redirect_to [:index,
+         #                 { page: @page, per_page: @per_page, search_term: @search_term,
+         #                   producer_id: @producer_id, category_id: @category_id, format: :turbo_stream }]
+         #  end
+
+         # format.html do
             redirect_to [:index,
                          { page: @page, per_page: @per_page, search_term: @search_term,
-                           producer_id: @producer_id, category_id: @category_id }]
-          end
-        end
+                           producer_id: @producer_id, category_id: @category_id}]
+          # end
+        # end
 
       elsif product_set.errors.present?
         @error_counts = { saved: product_set.saved_count, invalid: product_set.invalid.count }
 
-        render "index", status: :unprocessable_entity, locals: { producers:, categories:, flash: }
+        respond_to do |format|
+          format.turbo_stream do
+            # render status: :unprocessable_entity, turbo_stream: turbo_stream.replace("products-content", partial: "content",
+            #   locals: { products: @products, pagy: @pagy, search_term: @search_term,
+            #                                  producer_options: producers, producer_id: @producer_id,
+            #                                  category_options: categories, category_id: @category_id,
+            #                                  flashes: flash })
+
+
+            # Render content with bare minimum html. it doesn't like that. hmm, are we really within a turbo_frame then?
+            render "_content", status: :unprocessable_entity, formats: :html, layout: "layouts/turbo_rails/frame",
+                   locals: { products: @products, pagy: @pagy, search_term: @search_term,
+                             producer_options: producers, producer_id: @producer_id,
+                             category_options: categories, category_id: @category_id,
+                             flashes: flash }
+          end
+
+         format.html do
+            render "index", status: :unprocessable_entity, locals: { producers:, categories:, flash: }
+          end
+        end
       end
     end
 

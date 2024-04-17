@@ -1,22 +1,23 @@
-.spinner-overlay{ "data-controller": "loading", "data-products-target": "loading", class: "hidden" }
-  .spinner-container
-    .spinner
-    = t('.loading')
-.container
-  .sixteen.columns
-    = render partial: 'admin/shared/flashes', locals: { flashes: } if defined? flashes
-    = render partial: 'filters', locals: { search_term: search_term,
-                                            producer_id: producer_id,
-                                            producer_options: producer_options,
-                                            category_options: category_options,
-                                            category_id: category_id }
-- if products.any?
-  .container.results
+%turbo-frame#products-content
+  .spinner-overlay{ "data-controller": "loading", "data-products-target": "loading", class: "hidden" }
+    .spinner-container
+      .spinner
+      = t('.loading')
+  .container
     .sixteen.columns
-      = render partial: 'sort', locals: { pagy: pagy, search_term: search_term, producer_id: producer_id, category_id: category_id }
-      = render partial: 'table', locals: { products: products }
-  - if pagy.present? && pagy.pages > 1
-    = render partial: 'admin/shared/stimulus_pagination', locals: { pagy: pagy }
-- else
-  #no-products
-    = render partial: "no_products", locals: { search_term: search_term, producer_id: producer_id, category_id: category_id }
+      = render partial: 'admin/shared/flashes', locals: { flashes: } if defined? flashes
+      = render partial: 'filters', locals: { search_term: search_term,
+                                              producer_id: producer_id,
+                                              producer_options: producer_options,
+                                              category_options: category_options,
+                                              category_id: category_id }
+  - if products.any?
+    .container.results
+      .sixteen.columns
+        = render partial: 'sort', locals: { pagy: pagy, search_term: search_term, producer_id: producer_id, category_id: category_id }
+        = render partial: 'table', locals: { products: products }
+    - if pagy.present? && pagy.pages > 1
+      = render partial: 'admin/shared/stimulus_pagination', locals: { pagy: pagy }
+  - else
+    #no-products
+      = render partial: "no_products", locals: { search_term: search_term, producer_id: producer_id, category_id: category_id }
