@@ -526,6 +526,20 @@ describe 'As an enterprise user, I can manage my products', feature: :admin_styl
         end
       end
 
+      it 'removes a newly added not persisted variant' do
+        click_on "New variant"
+        new_variant_row = find_field("Name", placeholder: "Apples", with: "").ancestor("tr")
+        within new_variant_row do
+          fill_in "Name", with: "Large box"
+          fill_in "SKU", with: "APL-02"
+          expect(page).to have_field("Name", placeholder: "Apples", with: "Large box")
+          page.find(".vertical-ellipsis-menu").click
+          page.find('a', text: 'Remove').click
+        end
+
+        expect(page).not_to have_field("Name", placeholder: "Apples", with: "Large box")
+      end
+
       context "with invalid data" do
         before do
           click_on "New variant"
