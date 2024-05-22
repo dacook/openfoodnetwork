@@ -47,7 +47,11 @@ module Spree
 
         if @object.update(permitted_resource_params)
           flash[:success] = flash_message_for(@object, :successfully_updated)
-          redirect_to location_after_save
+
+          respond_with do |format|
+            format.html { redirect_to location_after_save }
+            format.turbo_stream
+          end
         else
           respond_with(@object)
         end

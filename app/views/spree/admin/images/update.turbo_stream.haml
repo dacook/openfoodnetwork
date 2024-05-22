@@ -1,0 +1,5 @@
+= turbo_stream.replace "image-#{@product.id}" do
+  = render partial: "admin/products_v3/product_image", locals: { product: @product }
+  /todo: show success message
+  / = render partial: "admin/shared/flashes", locals: { flashes: flash } if defined? flash
+

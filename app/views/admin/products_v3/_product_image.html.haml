@@ -1,0 +1,4 @@
+- if product.image.present? # todo: handle blank img
+  %a.image-field{ href: edit_admin_product_image_path(product.id, product.image.id), 'data-turbo-stream': true }
+    = image_tag product.image&.url(:mini) || Spree::Image.default_image_url(:mini), width: 40, height: 40
+    .button.secondary.mini= t('admin.products_page.image.edit')
