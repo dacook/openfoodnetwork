@@ -1,6 +1,6 @@
 %td{ 'ng-show': 'columns.image.visible' }
   -# empty
-%td.field.naked_inputs
+%td.field.naked_inputs{ 'ng-show': 'columns.name.visible' }
   = f.hidden_field :id
   = f.text_field :display_name, 'aria-label': t('admin.products_page.columns.name'), placeholder: variant.product.name
   = error_message_on variant, :display_name

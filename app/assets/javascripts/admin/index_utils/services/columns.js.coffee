@@ -24,6 +24,7 @@ angular.module("admin.indexUtils").factory 'Columns', ($rootScope, $http, $injec
     calculateVisibleCount: =>
       @visibleCount = (column for name, column of @columns when column.visible).length
       $rootScope.$broadcast "columnCount:changed", @visibleCount
+      console.log("visibleCount", @visibleCount)
 
     preferencesSaved: =>
       angular.equals(@columns, @savedColumns)
