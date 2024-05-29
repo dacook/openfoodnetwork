@@ -1,3 +1,5 @@
+= admin_inject_column_preferences
+
 - content_for :page_title do
   = t('.header.title')
 - content_for :page_actions do
@@ -11,7 +13,9 @@
 
 = render partial: 'spree/admin/shared/product_sub_menu'
 
-#products_v3_page{ "data-controller": "products", 'data-turbo': true }
+#products_v3_page{ "data-controller": "products", 'data-turbo': true, "ng-app": 'ofn.admin', "ng-controller": 'AdminProductEditCtrl', "ng-init": 'initialise()' }
+
+  %columns-dropdown{ action: "#{controller_name}_#{action_name}" }
   = render partial: "content", locals: { products: @products, pagy: @pagy, search_term: @search_term,
                                producer_options: producers, producer_id: @producer_id,
                                category_options: categories, category_id: @category_id,

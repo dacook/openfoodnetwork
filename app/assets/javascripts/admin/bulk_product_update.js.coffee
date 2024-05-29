@@ -1,40 +1,40 @@
-angular.module("ofn.admin").controller "AdminProductEditCtrl", ($scope, $timeout, $filter, $http, $window, $location, BulkProducts, DisplayProperties, DirtyProducts, VariantUnitManager, StatusMessage, producers, Taxons, Columns, tax_categories, RequestMonitor, SortOptions, ErrorsParser, ProductFiltersUrl) ->
-  $scope.StatusMessage = StatusMessage
+angular.module("ofn.admin").controller "AdminProductEditCtrl", ($scope, $timeout, $filter, $http, $window, $location, Columns) ->
+  # $scope.StatusMessage = StatusMessage
 
   $scope.columns = Columns.columns
 
-  $scope.variant_unit_options = VariantUnitManager.variantUnitOptions()
+  # $scope.variant_unit_options = VariantUnitManager.variantUnitOptions()
 
-  $scope.RequestMonitor = RequestMonitor
-  $scope.pagination = BulkProducts.pagination
-  $scope.per_page_options = [
-    {id: 15, name: t('js.admin.orders.index.per_page', results: 15)},
-    {id: 50, name: t('js.admin.orders.index.per_page', results: 50)},
-    {id: 100, name: t('js.admin.orders.index.per_page', results: 100)}
-  ]
+  # $scope.RequestMonitor = RequestMonitor
+  # $scope.pagination = BulkProducts.pagination
+  # $scope.per_page_options = [
+  #   {id: 15, name: t('js.admin.orders.index.per_page', results: 15)},
+  #   {id: 50, name: t('js.admin.orders.index.per_page', results: 50)},
+  #   {id: 100, name: t('js.admin.orders.index.per_page', results: 100)}
+  # ]
 
-  $scope.q = {
-    producerFilter: ""
-    categoryFilter: ""
-    importDateFilter: ""
-    query: ""
-    sorting: ""
-  }
+  # $scope.q = {
+  #   producerFilter: ""
+  #   categoryFilter: ""
+  #   importDateFilter: ""
+  #   query: ""
+  #   sorting: ""
+  # }
 
-  $scope.sorting = "name asc"
-  $scope.producers = producers
-  $scope.taxons = Taxons.all
-  $scope.tax_categories = tax_categories
-  $scope.page = 1
-  $scope.per_page = 15
-  $scope.products = BulkProducts.products
-  $scope.DisplayProperties = DisplayProperties
+  # $scope.sorting = "name asc"
+  # $scope.producers = producers
+  # $scope.taxons = Taxons.all
+  # $scope.tax_categories = tax_categories
+  # $scope.page = 1
+  # $scope.per_page = 15
+  # $scope.products = BulkProducts.products
+  # $scope.DisplayProperties = DisplayProperties
 
-  $scope.sortOptions = SortOptions
+  # $scope.sortOptions = SortOptions
 
   $scope.initialise = ->
-    $scope.q = ProductFiltersUrl.loadFromUrl($location.search())
-    $scope.fetchProducts()
+    # $scope.q = ProductFiltersUrl.loadFromUrl($location.search())
+    # $scope.fetchProducts()
 
   $scope.$watchCollection '[q.query, q.producerFilter, q.categoryFilter, q.importDateFilter, per_page]', ->
     $scope.page = 1 # Reset page when changing filters for new search

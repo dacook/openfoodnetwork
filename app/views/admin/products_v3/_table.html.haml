@@ -15,7 +15,7 @@
 
   %table.products
     %colgroup
-      %col{ width:"56" }= #  Img (size + padding)
+      %col{ width:"56", 'ng-show': 'columns.image.visible' }= #  Img (size + padding)
       %col= # (grow to fill) Name
       %col{ width:"5%"}
       %col{ width:"8%"}
@@ -28,7 +28,7 @@
       %col{ width:"8%"}
       %col{ width:"8%"}= # Actions
     %thead
-      %tr
+      %tr{ "ng-controller": "ColumnsCtrl" }
         %td.form-actions-wrapper{ colspan: 12 }
           .form-actions-wrapper2
             %fieldset.form-actions{ class: ("hidden" unless defined?(@error_counts)), 'data-bulk-form-target': "actions" }
@@ -48,7 +48,7 @@
                     = t('.reset')
                   = form.submit t('.save'), class: "medium"
       %tr
-        %th.align-left= # image
+        %th.align-left{ 'ng-show': 'columns.image.visible' }= # image
         = render partial: 'spree/admin/shared/stimulus_sortable_header',
             locals: { column: :name, sorted: params.dig(:q, :s), default: 'name asc' }
         %th.align-left.with-input= t('admin.products_page.columns.sku')

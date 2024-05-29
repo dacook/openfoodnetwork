@@ -1,4 +1,4 @@
-%td.with-image{ id: "image-#{product.id}" }
+%td.with-image{ id: "image-#{product.id}", 'ng-show': 'columns.image.visible' }
   = render partial: "product_image", locals: { product: }
 %td.field.align-left.header.naked_inputs
   = f.hidden_field :id

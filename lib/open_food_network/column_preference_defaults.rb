@@ -77,6 +77,8 @@ module OpenFoodNetwork
       }
     end
 
+    alias_method :products_v3_index_columns, :products_index_columns
+
     def enterprises_index_columns
       node = "admin.enterprises.index"
       {
