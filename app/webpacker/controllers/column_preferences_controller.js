@@ -4,7 +4,7 @@ import { Controller } from "stimulus";
 //
 export default class ColumnPreferencesController extends Controller {
   connect() {
-    this.table = document.querySelector('table[data-column-preferences-target="table"]');
+    this.table = document.querySelector('[data-column-preferences-target="table"]');
     this.cols = Array.from(this.table.querySelectorAll('col'));
     this.colSpanCells = this.table.querySelectorAll('th[colspan],td[colspan]');
     // Initialise data-default-col-span
@@ -27,7 +27,8 @@ export default class ColumnPreferencesController extends Controller {
     const element = e.target || e;
     const name = element.dataset.columnName;
 
-    this.table.classList.toggle(`hide-${name}`, !element.checked);
+    // this.table.classList.toggle(`hide-${name}`, !element.checked);
+    // But we still need to:
 
     // Reset cell colspans
     const hiddenColCount = this.checkboxes.filter((checkbox)=> !checkbox.checked).length;

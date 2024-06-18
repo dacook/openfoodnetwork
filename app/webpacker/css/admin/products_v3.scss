@@ -180,16 +180,17 @@
     .ts-control {
       z-index: 0; // Avoid hovering over thead
     }
+  }
 
-    // Hide columns
-    $columns:
-      "image", "name", "sku", "unit_scale", "unit", "price", "on_hand", "producer", "category",
-      "tax_category", "inherits_properties";
-    @each $col in $columns {
-      &.hide-#{$col} {
-        .col-#{$col} {
-          display: none;
-        }
+
+  // Hide columns
+  $columns:
+    "image", "name", "sku", "unit_scale", "unit", "price", "on_hand", "producer", "category",
+    "tax_category", "inherits_properties";
+  @each $col in $columns {
+    [data-column-preferences-target="table"]:has([data-column-name="#{$col}"]:not(:checked)) {
+      .col-#{$col} {
+        display: none;
       }
     }
   }
