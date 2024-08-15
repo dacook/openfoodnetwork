@@ -16,9 +16,13 @@ module OpenFoodNetwork
     def search
       @variants = query_scope
 
+binding.pry
       scope_to_in_stock_only if scope_to_in_stock_only?
+binding.pry
       scope_to_schedule if params[:schedule_id]
+binding.pry
       scope_to_order_cycle if params[:order_cycle_id]
+binding.pry
       scope_to_distributor if params[:distributor_id]
 
       @variants
