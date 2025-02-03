@@ -7,7 +7,7 @@ ruby File.read('.ruby-version').chomp
 
 gem 'dotenv', require: 'dotenv/load' # Load ENV vars before other gems
 
-gem 'rails'
+gem 'rails', "7.1.0"
 
 # Active Storage
 gem "active_storage_validations"
