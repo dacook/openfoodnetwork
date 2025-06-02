@@ -22,7 +22,10 @@ class CompleteBackorderJob < ApplicationJob
 
     return if order&.lines.blank?
 
-    urls = FdcUrlBuilder.new(order.lines[0].offer.offeredItem.semanticId)
+    offeredItem = order.lines[0].offer.offeredItem
+    offeredItem = offeredItem.semanticId unless offeredItem.is_a? String
+
+    urls = FdcUrlBuilder.new(offeredItem)
 
     BackorderUpdater.new.update(order, user, distributor, order_cycle)
 
