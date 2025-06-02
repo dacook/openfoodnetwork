@@ -17,16 +17,16 @@ class SuppliedProductBuilder < DfcBuilder
 
     catalogItems = [catalog_item(variant, include_product: false)] if include_catalog_items
 
-    DataFoodConsortium::Connector::SuppliedProduct.new(
+    DfcProvider::SuppliedProduct.new(
       semantic_id(variant),
       name: variant.product_and_full_name,
       description: variant.description,
       productType: product_type(variant),
       quantity: QuantitativeValueBuilder.quantity(variant),
       isVariantOf: [product_group],
-      # spree_product_uri: product_uri,
-      # spree_product_id: variant.product.id,
-      # image_url: variant.product&.image&.url(:product),
+      spree_product_uri: product_uri,
+      spree_product_id: variant.product.id,
+      image_url: variant.product&.image&.url(:product),
       catalogItems:,
     )
   end
