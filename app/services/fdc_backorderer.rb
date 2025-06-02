@@ -70,10 +70,7 @@ class FdcBackorderer
 
   def find_order_line(order, offer)
     order.lines.find do |line|
-      offeredItem = line.offer.offeredItem
-      offeredItem = offeredItem.semanticId unless offeredItem.is_a? String
-
-      offeredItem == offer.offeredItem.semanticId
+      line.offer.offeredItem.semanticId == offer.offeredItem.semanticId
     end
   end
 
