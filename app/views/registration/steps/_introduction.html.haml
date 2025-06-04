@@ -48,4 +48,4 @@
           %label{for: "accept_terms"} #{t(:enterprise_tos_agree)}
 
     .small-12.medium-6.columns
-      %input.button.primary.left{ type: "button", value: "{{'registration.steps.introduction.registration_action' | t}}", "ng-click": "select('details')", "ng-disabled": "tos_required && !tos_accepted", "ng-model": "tos_accepted" }
+      %input.button.primary.left{ type: "button", value: t('.registration_action'), "ng-click": "select('details')", "ng-disabled": "tos_required && !tos_accepted", "ng-model": "tos_accepted" }
