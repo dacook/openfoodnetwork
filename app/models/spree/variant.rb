@@ -73,9 +73,9 @@ module Spree
     has_many :supplier_properties, through: :supplier, source: :properties
 
     has_many :variant_links_as_target, class_name: 'VariantLink', foreign_key: :target_variant_id,
-                                     dependent: :delete_all, inverse_of: :target_variant
+                                       dependent: :delete_all, inverse_of: :target_variant
     has_many :source_variants, through: :variant_links_as_target, source: :source_variant
-    
+
     has_many :variant_links_as_source, class_name: 'VariantLink', foreign_key: :source_variant_id,
                                         dependent: :delete_all, inverse_of: :source_variant
     has_many :target_variants, through: :variant_links_as_source, source: :target_variant
